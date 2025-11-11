@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (storedUser.email === loginEmail && storedUser.password === loginPassword) {
         alert("Login Successful!");
         localStorage.setItem("loggedInUser", storedUser.name);
-        window.location.href = "dashboard.html";
+        window.location.href = "projects.html";
       } else {
         alert("Invalid credentials. Try again!");
       }
