@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
   
       // Optional redirect
-      // window.location.href = 'dashboard.html';
+      window.location.href = 'projects.html';
     });
   });
   document.addEventListener('DOMContentLoaded', () => {
