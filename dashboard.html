@@ -48,13 +48,13 @@
   <!-- ===== NAVBAR ===== -->
   <nav class="navbar">
     <div class="logo">
-      <a href="projects.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
-      <a href="projects.html"><h1>AI Project Tracker</h1></a>
+      <a href="dashboard.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
+      <a href="dashboard.html"><h1>AI Project Tracker</h1></a>
     </div>
     <ul class="nav-links">
-      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a class="active" href="dashboard.html">Dashboard</a></li>
       <li><a href="addTask.html">Add Task</a></li>
-      <li><a class="active" href="manageTasks.html">Manage Tasks</a></li>
+      <li><a href="manageTasks.html">Manage Tasks</a></li>
       <li><a href="profile.html">Profile</a></li>
     </ul>
     <div class="navbar-user">
@@ -198,9 +198,7 @@
         window.location.href = "login.html";
         return;
       }
-      document.getElementById("userName").textContent = user.split(' ')[0]; // Show first name
-
-
+      document.getElementById("userName").textContent = user.split(' ')[0]; // Show first name 
       document.getElementById("logoutBtn").addEventListener("click", (e) => {
         e.preventDefault();
         localStorage.removeItem("loggedInUser");
@@ -320,5 +318,3 @@
   </script>
 </body>
 </html>
-
-
