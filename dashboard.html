@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Project Dashboard | Architecture Firm</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <style>
@@ -42,7 +42,7 @@
   <!-- 3D Model Viewer Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-  <script src="js/aiPredict.js" defer></script>
+  <script src="aiPredict.js" defer></script>
 </head>
 <body>
   <!-- ===== NAVBAR ===== -->
@@ -200,13 +200,6 @@
       }
       document.getElementById("userName").textContent = user.split(' ')[0]; // Show first name
 
-      // Check if a project was selected. If not, redirect to the project list.
-      // const params = new URLSearchParams(window.location.search);
-      // const projectId = params.get('project');
-      // if (!projectId) {
-      //   window.location.href = 'projects.html';
-      //   return;
-      // }
 
       document.getElementById("logoutBtn").addEventListener("click", (e) => {
         e.preventDefault();
@@ -327,4 +320,5 @@
   </script>
 </body>
 </html>
+
 
