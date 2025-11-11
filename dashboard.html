@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Project Dashboard | Architecture Firm</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <style>
+    /* Enhanced Navbar Search Styles */
+    .navbar .navbar-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .navbar-search .fa-magnifying-glass {
+      position: absolute;
+      left: 15px;
+      color: #9ab;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .navbar-search input {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 8px 15px 8px 40px; /* Make space for icon */
+      color: #fff;
+      width: 220px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .navbar-search input:focus {
+      outline: none;
+      border-color: #00aaff;
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 280px; /* Expand on focus */
+    }
+  </style>
+  <!-- 3D Model Viewer Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="js/aiPredict.js" defer></script>
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="projects.html"><img src="images/logo.png" alt="Logo" class="logo-img"></a>
+      <a href="projects.html"><h1>AI Project Tracker</h1></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="addTask.html">Add Task</a></li>
+      <li><a class="active" href="manageTasks.html">Manage Tasks</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    </ul>
+    <div class="navbar-user">
+      <span class="welcome-text">Welcome, <span id="userName">User</span></span>
+      <a href="admin-view.html" class="notification-bell" title="View Messages"><i class="fa-regular fa-bell"></i></a>
+      <a href="profile.html" class="user-profile-link" title="View Profile">
+        <img src="https://i.pravatar.cc/40" alt="User Avatar" class="user-avatar">
+      </a>
+      <a href="login.html" id="logoutBtn" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="dashboard">
+    <!-- Project Context Header -->
+    <header class="project-header">
+      <div class="project-title">
+        <h1>Grand City Tower Renovation</h1>
+        <span class="user-role">Architect/Admin</span>
+      </div>
+      <div class="project-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search within project...">
+      </div>
+    </header>
+
+    <!-- Dashboard Grid Layout -->
+    <div class="dashboard-grid">
+      <!-- Project Health -->
+      <article class="card">
+        <h3><i class="fa-solid fa-shield-halved"></i> Project Health</h3>
+        <div class="health-status">On Track</div>
+        <div class="progress-bar-group">
+          <label>90% Completed</label>
+          <div class="progress-bar"><div style="width: 90%;"></div></div>
+        </div>
+        <div class="progress-bar-group">
+          <label>Budget Spent 85%</label>
+          <div class="progress-bar"><div style="width: 85%;"></div></div>
+        </div>
+        <div class="progress-bar-group">
+          <label>Scope Defined</label>
+          <div class="progress-bar"><div style="width: 100%;"></div></div>
+        </div>
+      </article>
+
+      <!-- AI Confidence Score -->
+      <article class="card">
+        <h3><i class="fa-solid fa-robot"></i> AI Confidence Score</h3>
+        <div class="confidence-score">92%</div>
+        <div class="confidence-subtext">AI PREDICTION RELIABILITY</div>
+        <div class="chart-wrapper-small">
+          <canvas id="confidenceChart"></canvas>
+        </div>
+      </article>
+
+      <!-- Budget vs Actual vs Forecast -->
+      <article class="card card-wide">
+        <h3><i class="fa-solid fa-chart-column"></i> Budgeted vs Actual vs AI Forecast</h3>
+        <div class="chart-wrapper">
+          <canvas id="budgetChart"></canvas>
+        </div>
+      </article>
+
+      <!-- AI Risk Alerts -->
+      <article class="card card-alert">
+        <h3><i class="fa-solid fa-triangle-exclamation"></i> AI Risk Alerts</h3>
+        <ul>
+          <li>Project X: Budget overrun prediction &gt; 10%</li>
+          <li>Resource Allocation: John Smith Overbooked Next Week</li>
+        </ul>
+      </article>
+
+      <!-- 3D Model Viewer -->
+      <article class="card card-large">
+        <h3><i class="fa-solid fa-cube"></i> 3D Model Visualization</h3>
+        <div class="model-placeholder">
+          <!-- 3D model will be rendered here by Three.js -->
+        </div>
+      </article>
+
+      <!-- Project Timeline -->
+      <article class="card">
+        <h3><i class="fa-solid fa-timeline"></i> Project Timeline</h3>
+        <ul class="timeline-list">
+          <li><span class="status-dot completed"></span> Phase 1: Foundation (Completed)</li>
+          <li><span class="status-dot in-progress"></span> Phase 2: Structure (In Progress)</li>
+          <li><span class="status-dot upcoming"></span> Phase 3: Interiors (Upcoming)</li>
+        </ul>
+      </article>
+
+      <!-- Team Utilization -->
+      <article class="card">
+        <h3><i class="fa-solid fa-users"></i> Team Utilization</h3>
+        <ul class="utilization-list">
+          <li>John (80%) <div class="util-bar"><div style="width: 80%;"></div></div></li>
+          <li>Jane (95%) <div class="util-bar"><div style="width: 95%;"></div></div></li>
+          <li>Mike (110%) <div class="util-bar overloaded"><div style="width: 100%;"></div></div></li>
+        </ul>
+      </article>
+
+      <!-- Task Statistics -->
+      <article class="card">
+        <h3><i class="fa-solid fa-chart-pie"></i> Task Statistics</h3>
+        <div class="chart-wrapper-small">
+          <canvas id="taskChart"></canvas>
+        </div>
+        <div class="task-details">Total: 150 (80% Done) | Pending: 30 (20%)</div>
+      </article>
+
+      <!-- Quick AI Budget Estimate -->
+      <article class="card">
+        <h3><i class="fa-solid fa-calculator"></i> Quick AI Budget Estimate</h3>
+        <form id="estimateForm">
+          <select id="projectType" required>
+            <option value="">Select Type</option>
+            <option value="Residential">Residential Building</option>
+            <option value="Commercial">Commercial Space</option>
+          </select>
+          <input type="text" id="squareFootage" placeholder="Square Footage" required />
+          <button type="submit">Estimate</button>
+        </form>
+        <p id="result">Estimated Cost: ₹</p>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <ul class="nav-links">
+      <li><a href="about-team.html">About</a></li>
+      <li><a href="team-contact.html">Contact</a></li>
+    </ul>
+    <p>© 2025 AI Project Tracker for Architecture</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check for logged-in user
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+      document.getElementById("userName").textContent = user.split(' ')[0]; // Show first name
+
+      // Check if a project was selected. If not, redirect to the project list.
+      // const params = new URLSearchParams(window.location.search);
+      // const projectId = params.get('project');
+      // if (!projectId) {
+      //   window.location.href = 'projects.html';
+      //   return;
+      // }
+
+      document.getElementById("logoutBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+      });
+
+      const chartOptions = {
+        plugins: { legend: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+          y: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { color: 'rgba(255,255,255,0.1)' } }
+        }
+      };
+
+      // Task Statistics Chart
+      new Chart(document.getElementById("taskChart").getContext('2d'), {
+        type: "doughnut",
+        data: {
+          labels: ["Completed", "Pending"],
+          datasets: [{ data: [120, 30], backgroundColor: ["#00aaff", "#444"], borderWidth: 0 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+
+      // AI Confidence Chart
+      new Chart(document.getElementById('confidenceChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: ['W1', 'W2', 'W3', 'W4'],
+          datasets: [{
+            data: [88, 90, 89, 92],
+            borderColor: '#00aaff',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 0,
+          }]
+        },
+        options: { ...chartOptions, scales: { x: { display: false }, y: { display: false } } }
+      });
+
+      // Budget Chart
+      new Chart(document.getElementById('budgetChart').getContext('2d'), {
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            type: 'bar',
+            label: 'Actual Spent',
+            data: [50, 60, 55, 75, 80, 95],
+            backgroundColor: 'rgba(255, 82, 82, 0.8)', // Red
+          }, {
+            type: 'line',
+            label: 'Budget Limit',
+            data: [100, 100, 100, 100, 100, 100],
+            borderColor: 'rgba(0, 170, 255, 1)', // Blue
+            borderWidth: 2,
+            pointRadius: 0,
+          }, {
+            type: 'line',
+            label: 'AI Forecast',
+            data: [55, 65, 60, 80, 88, 105],
+            borderColor: 'rgba(0, 255, 150, 1)', // Green
+            borderDash: [5, 5],
+            borderWidth: 2,
+            pointRadius: 0,
+          }]
+        },
+        options: { ...chartOptions, plugins: { legend: { labels: { color: '#fff' } } } }
+      });
+
+      // --- 3D Model Viewer ---
+      const modelContainer = document.querySelector('.model-placeholder');
+      if (modelContainer && typeof THREE !== 'undefined') {
+        // Scene
+        const scene = new THREE.Scene();
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(75, modelContainer.clientWidth / modelContainer.clientHeight, 0.1, 1000);
+        camera.position.z = 10;
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        modelContainer.appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 0.8);
+        pointLight.position.set(5, 10, 5);
+        scene.add(pointLight);
+
+        // "Grand Tower" Dummy Model
+        const towerGroup = new THREE.Group();
+        const material = new THREE.MeshStandardMaterial({ color: 0x00aaff, roughness: 0.3, metalness: 0.2 });
+
+        const base = new THREE.Mesh(new THREE.BoxGeometry(3, 5, 3), material);
+        const middle = new THREE.Mesh(new THREE.BoxGeometry(2.5, 4, 2.5), material);
+        middle.position.y = 4.5;
+        const top = new THREE.Mesh(new THREE.CylinderGeometry(0, 1, 2, 4), material);
+        top.position.y = 7.5;
+
+        towerGroup.add(base, middle, top);
+        scene.add(towerGroup);
+
+        // Animation Loop
+        function animate() {
+          requestAnimationFrame(animate);
+          towerGroup.rotation.y += 0.005;
+          renderer.render(scene, camera);
+        }
+        animate();
+      }
+    });
+  </script>
+</body>
+</html>

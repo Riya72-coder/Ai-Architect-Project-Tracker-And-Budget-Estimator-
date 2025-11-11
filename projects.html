@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select a Project | AI Project Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <style>
+    /* Enhanced Navbar Search Styles */
+    .navbar .navbar-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .navbar-search .fa-magnifying-glass {
+      position: absolute;
+      left: 15px;
+      color: #9ab;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .navbar-search input {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 8px 15px 8px 40px; /* Make space for icon */
+      color: #fff;
+      width: 220px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .navbar-search input:focus {
+      outline: none;
+      border-color: #00aaff;
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 280px; /* Expand on focus */
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .project-card {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--bg-tertiary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 170, 255, 0.2);
+    }
+    .project-card-img {
+      height: 180px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .project-card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card-content h3 {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .project-card-content p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+    .project-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .project-card-footer .status {
+      padding: 4px 8px;
+      border-radius: 15px;
+      font-weight: 500;
+    }
+    .status.on-track { background-color: rgba(0, 255, 150, 0.1); color: var(--accent-green); }
+    .status.at-risk { background-color: rgba(255, 82, 82, 0.1); color: var(--accent-red); }
+
+    /* Enhanced Notification Bell Style */
+    .notification-bell {
+      position: relative;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .notification-bell:hover {
+      color: var(--accent-blue);
+    }
+    .notification-bell .fa-bell {
+      font-size: 1.2rem;
+    }
+    .notification-bell::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-red);
+      border: 2px solid var(--bg-primary);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar remains consistent -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="projects.html"><img src="images/logo.png" alt="Logo" class="logo-img"></a>
+      <a href="projects.html"><h1>AI Project Tracker</h1></a>
+    </div>
+    <div class="navbar-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search projects...">
+    </div>
+    <div class="navbar-user">
+      <span class="welcome-text">Welcome, <span id="userName">User</span></span>
+      <a href="admin-view.html" class="notification-bell" title="View Messages"><i class="fa-regular fa-bell"></i></a>
+      <a href="profile.html" class="user-profile-link" title="View Profile">
+        <img src="https://i.pravatar.cc/40" alt="User Avatar" class="user-avatar">
+      </a>
+      <a href="login.html" id="logoutBtn" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+    </div>
+  </nav>
+
+  <main class="dashboard">
+    <header class="project-header">
+      <h1>Your Projects</h1>
+    </header>
+
+    <div class="project-grid">
+      <!-- Project 1 -->
+      <a href="dashboard.html?project=grand_city_tower" class="project-card" style="text-decoration: none;">
+        <img src="Images/ChatGPT_files/grand-tower-renovation.png" alt="Grand City Tower" class="project-card-img">
+        <div class="project-card-content">
+          <h3>Grand City Tower Renovation</h3>
+          <p>A complete overhaul of the iconic Grand City Tower, focusing on structural integrity and modern aesthetics.</p>
+          <div class="project-card-footer">
+            <span>Due: Dec 2025</span>
+            <span class="status on-track">On Track</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Add more project cards here -->
+      <div class="project-card" style="opacity: 0.5; align-items: center; justify-content: center; border-style: dashed;">
+        <p>More projects coming soon...</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 AI Project Tracker for Architecture</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("userName").textContent = user.split(' ')[0];
+      }
+
+      document.getElementById("logoutBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+      });
+    });
+  </script>
+</body>
+</html>

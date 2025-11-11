@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | AI Project Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/auth.js" defer></script>
+  <style>
+    .form-group .error-message {
+      color: #ff5252;
+      font-size: 0.8rem;
+      display: none; /* Hidden by default */
+      margin-top: 4px;
+    }
+    .form-group input.invalid {
+      border-color: #ff5252 !important;
+      box-shadow: 0 0 8px rgba(255, 82, 82, 0.5);
+    }
+    .form-group input.valid {
+      border-color: #00b8ff !important;
+      box-shadow: 0 0 8px rgba(0, 184, 255, 0.5);
+    }
+    #password-requirements {
+      font-size: 0.8rem; color: #9ab; margin-top: -10px; margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔹 NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="dashboard.html"><img src="images/logo.png" alt="Logo" class="logo-img"></a>
+      <a href="dashboard.html"><h1>AI Project Tracker</h1></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- 🔹 REGISTER SECTION -->
+  <section class="register-section">
+    <div class="register-card">
+      <h2>Client Registration</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" placeholder="Enter your full name" required />
+          <small class="error-message">Full name is required.</small>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+          <small class="error-message">Please enter a valid email address.</small>
+        </div>
+        <div class="form-group">
+          <label for="company">Company Name:</label>
+          <input type="text" id="company" placeholder="Enter company name" required />
+          <small class="error-message">Company name is required.</small>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" placeholder="Enter password" required />
+          <div id="password-requirements">
+             At least 8 characters, 1 uppercase, 1 lowercase, 1 number.
+          </div>
+          <small class="error-message">Password does not meet requirements.</small>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
+          <small class="error-message">Passwords do not match.</small>
+        </div>
+        <button type="submit" class="btn-send">Register</button>
+      </form>
+      <p class="register-link">Already registered? <a href="login.html">Login here</a></p>
+    </div>
+  </section>
+
+  <!-- 🔹 FOOTER -->
+  <footer class="footer">
+    <p>© 2025 AI Project Tracker | Designed by VisionCoders Team</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registerForm');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const companyInput = document.getElementById('company');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+
+      const validateField = (input, condition) => {
+        const errorMessage = input.nextElementSibling;
+        if (condition) {
+          input.classList.remove('invalid');
+          input.classList.add('valid');
+          errorMessage.style.display = 'none';
+          return true;
+        } else {
+          input.classList.remove('valid');
+          input.classList.add('invalid');
+          errorMessage.style.display = 'block';
+          return false;
+        }
+      };
+
+      const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const isPasswordStrong = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+
+      const validateForm = () => {
+        const isNameValid = validateField(nameInput, nameInput.value.trim() !== '');
+        const isCompanyValid = validateField(companyInput, companyInput.value.trim() !== '');
+        const isUserEmailValid = validateField(emailInput, isEmailValid(emailInput.value));
+        const isPwdStrong = validateField(passwordInput, isPasswordStrong(passwordInput.value));
+        const doPasswordsMatch = validateField(confirmPasswordInput, passwordInput.value === confirmPasswordInput.value && confirmPasswordInput.value !== '');
+        
+        return isNameValid && isCompanyValid && isUserEmailValid && isPwdStrong && doPasswordsMatch;
+      };
+
+      // Attach event listeners for real-time validation
+      nameInput.addEventListener('input', () => validateField(nameInput, nameInput.value.trim() !== ''));
+      emailInput.addEventListener('input', () => validateField(emailInput, isEmailValid(emailInput.value)));
+      companyInput.addEventListener('input', () => validateField(companyInput, companyInput.value.trim() !== ''));
+      passwordInput.addEventListener('input', () => {
+        validateField(passwordInput, isPasswordStrong(passwordInput.value));
+        // Also re-validate confirm password field when password changes
+        if (confirmPasswordInput.value) {
+          validateField(confirmPasswordInput, passwordInput.value === confirmPasswordInput.value);
+        }
+      });
+      confirmPasswordInput.addEventListener('input', () => validateField(confirmPasswordInput, passwordInput.value === confirmPasswordInput.value && confirmPasswordInput.value !== ''));
+
+      // The form submission is already handled by auth.js.
+      // We just prevent the default submission if validation fails.
+      form.addEventListener('submit', (e) => {
+        // The auth.js script will run after this, so we stop it here if invalid.
+        if (!validateForm()) {
+          e.preventDefault(); // Stop form submission
+          console.log('Form validation failed. Submission prevented.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

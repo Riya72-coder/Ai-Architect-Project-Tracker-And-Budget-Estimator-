@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin View | AI Project Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .admin-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .admin-section h2 {
+      color: #00d0ff;
+      text-shadow: 0 0 10px #00bfff;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+    .table-container {
+      margin: 0 auto;
+      background: rgba(15, 20, 30, 0.85);
+      width: 80%;
+      max-width: 1200px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.25);
+      backdrop-filter: blur(8px);
+      overflow: hidden; /* Ensures border-radius is respected by the table */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #e3f2fd;
+    }
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    th {
+      background: rgba(0, 180, 255, 0.2);
+      color: #00d0ff;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    tr:hover {
+      background: rgba(0, 180, 255, 0.08);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="dashboard.html"><img src="images/logo.png" alt="Logo" class="logo-img"></a>
+      <a href="dashboard.html"><h1>AI Project Tracker</h1></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin-view.html" class="active">Admin View</a></li>
+    </ul>
+  </nav>
+
+  <section class="admin-section">
+    <h2>📩 Messages Received</h2>
+    <div class="table-container">
+    <table id="messageTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy Data will be replaced by script if localStorage has messages -->
+        <tr>
+          <td>John Doe</td>
+          <td>john.doe@example.com</td>
+          <td>Interested in the new skyscraper project. Can we get a quote?</td>
+          <td>2024-05-20 10:30 AM</td>
+        </tr>
+        <tr>
+          <td>Jane Smith</td>
+          <td>jane.smith@example.com</td>
+          <td>I have a question about material specifications for the residential complex.</td>
+          <td>2024-05-19 03:45 PM</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <ul class="nav-links">
+      <li><a href="about-team.html">About</a></li>
+      <li><a href="team-contact.html">Contact</a></li>
+    </ul>
+    <p>© 2025 AI Project Tracker | Admin Dashboard</p>
+  </footer>
+
+  <script>
+    const tableBody = document.querySelector("#messageTable tbody");
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+    // Only populate from localStorage if there are actual messages stored.
+    // Otherwise, the dummy data in the HTML will be shown.
+    if (messages.length > 0) {
+      tableBody.innerHTML = ''; // Clear the dummy data
+      messages.forEach(msg => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${msg.name}</td>
+          <td>${msg.email}</td>
+          <td>${msg.message}</td>
+          <td>${new Date(msg.time).toLocaleString()}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>

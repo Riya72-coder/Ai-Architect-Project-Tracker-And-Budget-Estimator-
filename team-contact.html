@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | AI Project Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Add Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* --- Contact Page Specific Styles --- */
+    .contact-hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(rgba(10, 15, 25, 0.9), rgba(10, 15, 25, 0.9));
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+    .contact-hero .hero-content {
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeIn 1s ease;
+    }
+    .contact-hero h2 {
+      font-size: 2.5rem;
+      color: #00d0ff;
+      margin-bottom: 10px;
+    }
+    .contact-hero p {
+      font-size: 1.1rem;
+      color: #c0d0e0;
+    }
+    .contact-logo {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+
+    .contact-section {
+      padding: 60px 20px;
+    }
+    .contact-container {
+      display: flex;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(15, 20, 30, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.25);
+    }
+    .contact-form {
+      flex: 1;
+    }
+    .contact-form h2 {
+      color: #00d0ff;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #383c4a;
+      border-radius: 8px;
+      background: #1a1d21;
+      color: #f4faff;
+      font-size: 1rem;
+    }
+    .contact-form .btn-send {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .status-msg {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: 500;
+      color: var(--accent-green);
+    }
+
+    .contact-info {
+      flex: 1;
+      padding-left: 40px;
+      border-left: 1px solid #383c4a;
+    }
+    .contact-info h2 {
+      color: #00d0ff;
+      margin-bottom: 20px;
+    }
+    .contact-info p {
+      margin-bottom: 15px;
+      color: #c0d0e0;
+    }
+    .contact-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+      opacity: 0.8;
+    }
+
+    .social-links {
+      margin-top: 30px;
+    }
+    .social-links h3 {
+      color: #00d0ff;
+      margin-bottom: 15px;
+    }
+    .social-links a {
+      color: #c0d0e0;
+      font-size: 1.8rem;
+      margin-right: 20px;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover { color: #00aaff; }
+  </style>
+</head>
+<body>
+  <!-- 🔹 NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="about.html"><img src="images/team-logo.png" alt="Logo" class="logo-img"></a>
+      <a href="about.html"><h1>Vision Coders</h1></a>
+    </div>
+    
+  </nav>
+
+  <!-- 🔹 CONTACT HERO -->
+  <section class="hero contact-hero">
+    <div class="hero-content">
+      <!-- Assuming you have a contact icon, if not, you can remove this line -->
+      <h2>Get in Touch</h2>
+      <p>We’d love to hear from you! Whether you have questions, feedback, or collaboration ideas — reach out anytime.</p>
+    </div>
+  </section>
+
+  <!-- 🔹 CONTACT FORM SECTION -->
+  <section class="contact-section">
+    <div class="contact-container">
+      <form class="contact-form" id="contactForm">
+        <h2>Send Us a Message</h2>
+        <div class="form-group">
+          <input type="text" id="contactName" placeholder="Your Name" required />
+        </div>
+        <div class="form-group">
+          <input type="email" id="contactEmail" placeholder="Your Email" required />
+        </div>
+        <div class="form-group">
+          <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-send">Send Message</button>
+        <p id="msgStatus" class="status-msg"></p>
+      </form>
+
+      <div class="contact-info">
+        <h2>Contact Details</h2>
+        <p><strong>Email:</strong> visioncoders@gmail.com</p>
+        <p><strong>Phone:</strong> +91 85457 67834</p>
+        <p><strong>Address:</strong> Vision Coders, Pune, India</p>
+        <img src="images/team-logo.png" width="250" height="350" alt="Contact Us" class="contact-image"/>
+        <div class="social-links">
+            <h3>Follow Us</h3>
+            <div>
+                <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔹 FOOTER -->
+  <footer class="footer">
+    <p>© 2025 Vision Coders | Designed by VisionCoders Team</p>
+  </footer>
+
+  <!-- 🔹 SCRIPT -->
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const message = {
+        name: document.getElementById("contactName").value.trim(),
+        email: document.getElementById("contactEmail").value.trim(),
+        message: document.getElementById("contactMessage").value.trim(),
+        time: new Date().toISOString(),
+      };
+
+      // Retrieve existing messages from localStorage, or initialize an empty array
+      const messages = JSON.parse(localStorage.getItem("messages")) || [];
+      messages.push(message);
+      localStorage.setItem("messages", JSON.stringify(messages));
+
+      // Show success message and clear form
+      const msgStatus = document.getElementById("msgStatus");
+      msgStatus.textContent = "✅ Thank you! Your message has been sent.";
+      document.getElementById("contactForm").reset();
+
+      // Hide the message after a few seconds
+      setTimeout(() => { msgStatus.textContent = ""; }, 4000);
+    });
+  </script>
+</body>
+</html>

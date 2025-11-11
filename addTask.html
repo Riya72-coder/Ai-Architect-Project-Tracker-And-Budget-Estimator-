@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Task | AI Project Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* --- Add Task Page Polish --- */
+.form-container {
+max-width: 480px;
+margin: 60px auto;
+background: rgba(0, 0, 0, 0.55);
+padding: 35px 40px;
+border-radius: 15px;
+box-shadow: 0 0 25px rgba(0, 200, 255, 0.25);
+text-align: center;
+backdrop-filter: blur(6px);
+transition: 0.3s ease;
+}
+.form-container:hover {
+box-shadow: 0 0 35px rgba(0, 200, 255, 0.35);
+}
+.form-container h2 {
+color: #00d0ff;
+font-size: 1.7rem;
+text-shadow: 0 0 12px #00c8ff;
+margin-bottom: 25px;
+font-weight: 600;
+letter-spacing: 0.5px;
+}
+label {
+display: block;
+text-align: left;
+color: #b9c5d0;
+font-weight: 500;
+margin: 10px 0 5px;
+font-size: 0.95rem;
+}
+input,
+select,
+textarea {
+width: 100%;
+padding: 12px;
+border: 1px solid #1a1a1a;
+border-radius: 8px;
+background: rgba(20, 20, 20, 0.9);
+color: #f4faff;
+outline: none;
+font-size: 0.95rem;
+transition: border-color 0.3s, box-shadow 0.3s;
+}
+input:focus,
+select:focus,
+textarea:focus {
+border-color: #00b8ff;
+box-shadow: 0 0 10px rgba(0, 184, 255, 0.3);
+}
+button {
+width: 100%;
+margin-top: 20px;
+padding: 13px;
+background: linear-gradient(90deg, #00bfff, #007bff);
+color: white;
+font-weight: 600;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 1rem;
+letter-spacing: 0.3px;
+transition: 0.3s ease;
+}
+button:hover {
+transform: translateY(-2px);
+background: linear-gradient(90deg, #008cff, #00c8ff);
+box-shadow: 0 0 15px rgba(0, 184, 255, 0.4);
+}
+.success-msg {
+display: none;
+margin-top: 20px;
+padding: 12px;
+color: #00ffb3;
+font-weight: bold;
+background: rgba(0, 255, 150, 0.1);
+border: 1px solid #00ffb3;
+border-radius: 8px;
+animation: fadeIn 0.8s ease;
+font-size: 0.95rem;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.9); }
+to { opacity: 1; transform: scale(1); }
+}
+
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="dashboard.html"><img src="images/logo.png" alt="Logo" class="logo-img"></a>
+      <a href="dashboard.html"><h1>AI Project Tracker</h1></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="addTask.html" class="active">Add Task</a></li>
+      <li><a href="manageTasks.html">Manage Tasks</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="login.html" id="logoutBtn">Logout</a></li>
+    </ul>
+  </nav>
+
+  <section class="form-container">
+    <h2>Add New Task</h2>
+    <form id="taskForm">
+      <label>Task Name:</label>
+      <input type="text" id="taskName" required />
+
+
+  <label>Description:</label>
+  <textarea id="taskDesc" rows="2" placeholder="Enter short description..."></textarea>
+
+  <label>Cost (₹):</label>
+  <input type="number" id="taskCost" min="0" />
+
+  <label>Deadline:</label>
+  <input type="date" id="taskDeadline" required />
+
+  <label>Priority:</label>
+  <select id="taskPriority">
+    <option value="Low">Low</option>
+    <option value="Medium" selected>Medium</option>
+    <option value="High">High</option>
+  </select>
+
+  <label>Status:</label>
+  <select id="taskStatus">
+    <option value="Pending">Pending</option>
+    <option value="Completed">Completed</option>
+  </select>
+
+  <button type="submit">Save Task</button>
+</form>
+
+<div class="success-msg" id="successMsg">✅ Task Saved Successfully!</div>
+
+
+  </section>
+
+  <footer>
+    <ul class="nav-links">
+      <li><a href="about-team.html">About</a></li>
+      <li><a href="team-contact.html">Contact</a></li>
+    </ul>
+    <p>© 2025 AI Project Tracker | Designed by VisionCoders Team</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("taskForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const task = {
+        name: document.getElementById("taskName").value.trim(),
+        description: document.getElementById("taskDesc").value.trim(), // Match property name from editTask
+        cost: document.getElementById("taskCost").value,
+        deadline: document.getElementById("taskDeadline").value,
+        priority: document.getElementById("taskPriority").value,
+        status: document.getElementById("taskStatus").value,
+      };
+
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.push(task);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+
+      // Show the on-screen success message
+      const successMsg = document.getElementById("successMsg");
+      successMsg.style.display = "block";
+
+      // Redirect after a short delay to allow the user to see the message
+      setTimeout(() => {
+        window.location.href = "manageTasks.html";
+      }, 1000); // 1-second delay
+    });
+
+    // Logout logic
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    });
+    });
+  </script>
+
+</body>
+</html>

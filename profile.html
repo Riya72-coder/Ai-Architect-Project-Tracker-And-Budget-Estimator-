@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | AI Project Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+
+  if (!userData) {
+    alert("Please login first!");
+    window.location.href = "login.html";
+    return;
+  }
+
+  document.getElementById("userName").textContent = userData.name;
+  document.getElementById("userEmail").textContent = userData.email;
+  document.getElementById("userCompany").textContent = userData.company;
+  document.getElementById("taskCount").textContent = tasks.length;
+});
+
+
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="dashboard.html"><img src="images/logo.png" alt="Logo" class="logo-img"></a>
+      <a href="dashboard.html"><h1>AI Project Tracker</h1></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="addTask.html">Add Task</a></li>
+      <li><a href="manageTasks.html">Manage Tasks</a></li>
+      <li><a href="profile.html" class="active">Profile</a></li>
+      <li><a href="#" id="logoutBtn">Logout</a></li>
+    </ul>
+  </nav>
+
+  <section class="dashboard">
+    <div class="profile-card">
+      <h2>👤 User Profile</h2>
+      <div class="profile-info">
+        <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+        <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
+        <p><strong>Company:</strong> <span id="userCompany">Loading...</span></p>
+        <p><strong>Total Tasks:</strong> <span id="userTasks">0</span></p>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    .profile-card {
+      background: rgba(15, 25, 35, 0.7);
+      border: 1px solid rgba(0, 200, 255, 0.3);
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.15);
+      border-radius: 20px;
+      padding: 40px;
+      width: 420px;
+      margin: 80px auto;
+      text-align: center;
+      color: #eaf6ff;
+      backdrop-filter: blur(12px);
+      transition: 0.3s ease;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+  
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.35);
+    }
+  
+    .profile-card h2 {
+      color: #00d4ff;
+      text-shadow: 0 0 10px #00d4ff;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+  
+    .profile-info p {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #dbe9ff;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: left;
+      transition: 0.2s;
+    }
+  
+    .profile-info p:hover {
+      background: rgba(0, 180, 255, 0.1);
+    }
+  
+    strong {
+      color: #00baff;
+    }
+  
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+      const loggedUser = localStorage.getItem("loggedInUser");
+      const userData = user.find(u => u.fullName === loggedUser);
+  
+      if (userData) {
+        document.getElementById("userName").textContent = userData.fullName;
+        document.getElementById("userEmail").textContent = userData.email;
+        document.getElementById("userCompany").textContent = userData.company;
+      }
+  
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      document.getElementById("userTasks").textContent = tasks.length;
+    });
+  </script>
+  
+
+  <script src="js/logout.js" defer></script>
+
+
+  <footer>
+    <ul class="nav-links">
+      <li><a href="about-team.html">About</a></li>
+      <li><a href="team-contact.html">Contact</a></li>
+    </ul>
+    <p>© 2025 AI Project Tracker | Designed by VisionCoders Team</p>
+  </footer>
+
+</body>
+</html>
+
